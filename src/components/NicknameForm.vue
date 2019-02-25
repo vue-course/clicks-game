@@ -1,41 +1,29 @@
 <template>
-	<div>
+	<form @submit.prevent="saveName">
 		<p>{{$gameData.step.message}}</p>
-		<ul>
-			<li v-for="room in $gameData.step.options"
-			    :key="room"
-			    :style="{backgroundColor: room}"
-			    @click="saveRoom(room)">{{room}}
-			</li>
-		</ul>
-	</div>
+		<input type="text" v-model="name" :placeholder="$gameData.step.message" />
+	</form>
 </template>
 
 <script>
 	export default {
-		name: 'RoomSelector',
+		name: 'NicknameForm',
+		data() {
+			return {name: ''};
+		},
 		methods: {
-			saveRoom(room) {
-				this.$game.updateRoom(room);
+			saveName() {
+				this.$game.updateNickname(this.name);
 			}
 		}
 	}
 </script>
 
 <style lang="scss" scoped>
-	ul {
-		list-style: none;
-		margin: 0;
-		padding: 0;
-		display: flex;
-		flex-direction: row;
-		align-content: space-between;
-
-		li {
-			flex-grow: 2;
-			text-align: center;
-			padding: 50px 0;
-			cursor: pointer;
-		}
+	input {
+		padding: 10px;
+		border-radius: 5px;
+		border: 1px solid #ddd;
+		width: 90%;
 	}
 </style>
