@@ -23,6 +23,7 @@ export class Game {
 		data: {
 			user: {},
 			step: {},
+			winner: {},
 			ranks: []
 		}
 	});
@@ -42,6 +43,7 @@ export class Game {
 		});
 		this.subscribe('currentStep', step => this.__$.step = step);
 		this.subscribe('ranksUpdated', ranks => this.__$.ranks = ranks);
+		this.subscribe('lastWinner', winner => this.__$.winner = winner);
 	}
 
 	setPermittedActions() {
