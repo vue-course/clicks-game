@@ -8,7 +8,7 @@ export class Game {
 		vue.prototype.$game = game.__$;
 	}
 
-	socket = io('//:3000');
+	socket = io('https://clicks-game-back.herokuapp.com');
 
 	get user() {
 		return this.__$.user;
