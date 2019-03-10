@@ -3,17 +3,19 @@
 		<img alt="Vue logo" src="./assets/logo.png">
 		<NicknameForm v-if="step.name === 'nickname'"/>
 		<RoomSelector v-else-if="step.name === 'room'"/>
-		<p v-else-if="step.name === 'play'">{{step.message}}</p>
+		<Clicker v-else-if="step.name === 'play'" />
 	</div>
 </template>
 
 <script>
 	import NicknameForm from './components/NicknameForm';
 	import RoomSelector from './components/RoomSelector';
+	import Clicker from './components/Clicker';
 
 	export default {
 		name: 'app',
 		components: {
+			Clicker,
 			RoomSelector,
 			NicknameForm
 		},
