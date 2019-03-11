@@ -2,11 +2,7 @@
 	<div>
 		<p>{{$gameData.step.message}}</p>
 		<ul>
-			<li v-for="room in $gameData.step.options"
-			    :key="room"
-			    :style="{backgroundColor: room}"
-			    @click="saveRoom(room)">{{room}}
-			</li>
+			<li v-for="room in $gameData.step.options" :key="room" :style="{backgroundColor: room}" @click="saveRoom(room)">{{room}}</li>
 		</ul>
 	</div>
 </template>
