@@ -1,11 +1,11 @@
 <template>
 	<div>
-		<p>{{$game.step.message}}</p>
-		<h1>Last Round Winner: {{$game.winner.name}}</h1>
+		<p>{{$gameData.step.message}}</p>
+		<h1>Last Round Winner: {{$gameData.winner.name}}</h1>
 		<button @click="click"
-		:style="{backgroundColor: $game.user.room}">CLICK!!!!</button>
+		:style="{backgroundColor: $gameData.user.room}">CLICK!!!!</button>
 
-		<div v-for="(row, index) in $game.ranks" :key="index">
+		<div v-for="(row, index) in $gameData.ranks" :key="index">
 			{{row.name}} : {{row.clicks}}
 		</div>
 	</div>
