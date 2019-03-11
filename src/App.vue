@@ -17,7 +17,7 @@
 		},
 		computed: {
 			step() {
-				return this.$game.step;
+				return this.$gameData.step;
 			}
 		}
 	}

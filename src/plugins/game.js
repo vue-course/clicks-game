@@ -5,7 +5,8 @@ import Vue from 'vue';
 export class Game {
 	static install(vue) {
 		const game = new Game();
-		vue.prototype.$game = game.__$;
+		vue.prototype.$game = game;
+		vue.prototype.$gameData = game.__$;
 	}
 
 	socket = io('https://clicks-game-back.herokuapp.com');
@@ -29,28 +30,21 @@ export class Game {
 	});
 
 	constructor() {
-		this.subscribeToAll();
-		this.setPermittedActions();
+		this._subscribeToAll();
+		this._setPermittedActions();
 		this.emit('register', localStorage.getItem('access_token'));
 
 		setInterval(() => this.ping(), 2000);
 	}
 
-	subscribeToAll() {
-		this.subscribe('user', user => {
+	_subscribeToAll() {
+		this._subscribe('user', user => {
 			this.user = user;
 			this.whatsNext();
 		});
-		this.subscribe('currentStep', step => this.__$.step = step);
-		this.subscribe('ranksUpdated', ranks => this.__$.ranks = ranks);
-		this.subscribe('lastWinner', winner => this.__$.winner = winner);
-	}
-
-	setPermittedActions() {
-		this.__$.whatsNext = () => this.whatsNext();
-		this.__$.updateNickname = (name) => this.updateNickname(name);
-		this.__$.updateRoom = (room) => this.updateRoom(room);
-		this.__$.click = (room) => this.click(room);
+		this._subscribe('currentStep', step => this.__$.step = step);
+		this._subscribe('ranksUpdated', ranks => this.__$.ranks = ranks);
+		this._subscribe('lastWinner', winner => this.__$.winner = winner);
 	}
 
 	ping() {
@@ -73,14 +67,21 @@ export class Game {
 		this.emit('clicked', null);
 	}
 
-	subscribe(eventName, cb) {
+	emit(eventName, data) {
+		this.socket.emit(eventName, JSON.stringify(data));
+	}
+
+	_setPermittedActions() {
+		this.__$.whatsNext = () => this.whatsNext();
+		this.__$.updateNickname = (name) => this.updateNickname(name);
+		this.__$.updateRoom = (room) => this.updateRoom(room);
+		this.__$.click = (room) => this.click(room);
+	}
+
+	_subscribe(eventName, cb) {
 		this.socket.on(eventName, (data) => {
 			cb(JSON.parse(data));
 		});
-	}
-
-	emit(eventName, data) {
-		this.socket.emit(eventName, JSON.stringify(data));
 	}
 
 }

@@ -1,7 +1,7 @@
 <template>
 	<form @submit.prevent="saveName">
-		<p>{{$game.step.message}}</p>
-		<input type="text" v-model="name" :placeholder="$game.step.message" />
+		<p>{{$gameData.step.message}}</p>
+		<input type="text" v-model="name" :placeholder="$gameData.step.message" />
 	</form>
 </template>
 
