@@ -4,6 +4,8 @@
 		<NicknameForm v-if="step.name === 'nickname'"/>
 		<RoomSelector v-else-if="step.name === 'room'"/>
 		<Clicker v-else-if="step.name === 'play'" />
+
+		<Rankings v-if="$gameData.user.room" />
 	</div>
 </template>
 
@@ -11,10 +13,12 @@
 	import NicknameForm from './components/NicknameForm';
 	import RoomSelector from './components/RoomSelector';
 	import Clicker from './components/Clicker';
+	import Rankings from './components/Rankings';
 
 	export default {
 		name: 'app',
 		components: {
+			Rankings,
 			Clicker,
 			RoomSelector,
 			NicknameForm

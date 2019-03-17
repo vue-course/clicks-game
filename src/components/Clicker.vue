@@ -1,13 +1,8 @@
 <template>
 	<div>
 		<p>{{$gameData.step.message}}</p>
-		<h1>Last Round Winner: {{$gameData.winner.name}}</h1>
 		<button @click="click"
 		:style="{backgroundColor: $gameData.user.room}">CLICK!!!!</button>
-
-		<div v-for="(row, index) in $gameData.ranks" :key="index">
-			{{row.name}} : {{row.clicks}}
-		</div>
 	</div>
 </template>
 
