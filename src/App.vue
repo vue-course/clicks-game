@@ -5,6 +5,7 @@
 		<RoomSelector v-else-if="step.name === 'room'"/>
 		<Clicker v-else-if="step.name === 'play'" />
 
+		<h1 v-if="$gameData.winner.name">Last Round Winner: {{$gameData.winner.name}}</h1>
 		<Rankings v-if="$gameData.user.room" />
 	</div>
 </template>
