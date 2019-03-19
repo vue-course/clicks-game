@@ -40,8 +40,8 @@ export class Game {
 			this.user = user;
 			this.whatsNext();
 		});
-		this._subscribe('ranksUpdated:all', ranks => this.__$.ranks = {...this.__$.ranks, ranks});
-		this._subscribe('lastWinner:all', winners => this.__$.winners = {...this.__$.winners, winners});
+		this._subscribe('ranksUpdated:all', ranks => this.__$.ranks = {...this.__$.ranks, ...ranks});
+		this._subscribe('lastWinner:all', winners => this.__$.winners = {...this.__$.winners, ...winners});
 	}
 
 	ping() {
