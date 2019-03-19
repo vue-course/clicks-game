@@ -22,17 +22,15 @@ export class Game {
 
 	__$ = new Vue({
 		data: {
-			user: {},
-			step: {},
-			winner: {},
-			ranks: []
+			ranks: {},
+			winners: {},
 		}
 	});
 
 	constructor() {
 		this._subscribeToAll();
-		this._setPermittedActions();
 		this.emit('register', localStorage.getItem('access_token'));
+		this.emit('allRooms');
 
 		setInterval(() => this.ping(), 2000);
 	}
@@ -40,42 +38,16 @@ export class Game {
 	_subscribeToAll() {
 		this._subscribe('user', user => {
 			this.user = user;
-			this.whatsNext();
 		});
-		this._subscribe('currentStep', step => this.__$.step = step);
-		this._subscribe('ranksUpdated', ranks => this.__$.ranks = ranks);
-		this._subscribe('lastWinner', winner => this.__$.winner = winner);
+		this._subscribe('ranksUpdated:all', ranks => this.__$.ranks = {...this.__$.ranks, ranks});
 	}
 
 	ping() {
 		this.emit('ping', null);
 	}
 
-	whatsNext() {
-		this.emit('whatsNext', null);
-	}
-
-	updateNickname(name) {
-		this.emit('updateNickname', name);
-	}
-
-	updateRoom(room) {
-		this.emit('updateRoom', room);
-	}
-
-	click() {
-		this.emit('clicked', null);
-	}
-
 	emit(eventName, data) {
 		this.socket.emit(eventName, JSON.stringify(data));
-	}
-
-	_setPermittedActions() {
-		this.__$.whatsNext = () => this.whatsNext();
-		this.__$.updateNickname = (name) => this.updateNickname(name);
-		this.__$.updateRoom = (room) => this.updateRoom(room);
-		this.__$.click = (room) => this.click(room);
 	}
 
 	_subscribe(eventName, cb) {
