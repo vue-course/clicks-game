@@ -31,5 +31,6 @@
 		color: #2c3e50;
 		display: flex;
 		flex-wrap: wrap;
+		height: 100%;
 	}
 </style>
