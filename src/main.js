@@ -6,6 +6,6 @@ Vue.use(Game);
 
 Vue.config.productionTip = false
 
-new Vue({
+window.app = new Vue({
 	render: h => h(App),
 }).$mount('#app');
